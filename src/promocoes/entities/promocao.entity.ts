@@ -6,7 +6,8 @@ export class Promocao {
   id: number;
   @Column()
   destino: string;
-
+  @Column({ nullable: true })
+  imagem: string;
   @Column()
   preco: number;
 }
