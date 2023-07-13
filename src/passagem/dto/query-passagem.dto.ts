@@ -24,6 +24,13 @@ export class QueryPassagemDto {
   passageirosCriancas?: number;
 
   @ApiProperty({
+    description: 'Quantidade de passageiros bebês',
+    default: 0,
+    required: false,
+  })
+  passageirosBebes?: number;
+
+  @ApiProperty({
     description: 'Quantidade de passageiros crianças',
     enum: ['Executiva', 'Econômica'],
     required: false,
