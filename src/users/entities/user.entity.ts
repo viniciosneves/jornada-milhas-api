@@ -23,6 +23,8 @@ export class User {
   email: string;
   @Column()
   senha: string;
+  @Column({ nullable: true })
+  genero: string;
 
   @Column()
   cidade: string;

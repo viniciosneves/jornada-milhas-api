@@ -14,6 +14,8 @@ export class UserDto {
   email: string;
   @ApiProperty()
   senha: string;
+  @ApiProperty()
+  genero: string;
 
   @ApiProperty()
   cidade: string;
