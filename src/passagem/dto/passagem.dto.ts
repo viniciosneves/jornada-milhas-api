@@ -3,6 +3,17 @@ import { ApiProperty } from '@nestjs/swagger';
 import { CompanhiaDto } from 'src/companhias/dto/companhia.dto';
 import { EstadoDto } from 'src/estados/dto/estado.dto';
 
+export class OrcamentoDto {
+  @ApiProperty()
+  descricao: string;
+  @ApiProperty()
+  preco: number;
+  @ApiProperty()
+  taxaEmbarque: number;
+  @ApiProperty()
+  total: number;
+}
+
 export class PassagemDto {
   @ApiProperty()
   tipo: TipoPassagem;
@@ -26,4 +37,8 @@ export class PassagemDto {
   dataIda: Date;
   @ApiProperty()
   dataVolta: Date;
+  @ApiProperty()
+  total: number;
+  @ApiProperty({ type: [OrcamentoDto] })
+  orcamento: OrcamentoDto[];
 }

@@ -31,17 +31,30 @@ export class QueryPassagemDto {
   passageirosBebes?: number;
 
   @ApiProperty({
-    description: 'Quantidade de passageiros crianças',
+    description: 'Tipo da passagem',
     enum: ['Executiva', 'Econômica'],
     required: false,
   })
   tipo?: TipoPassagem;
 
   @ApiProperty({
+    description: 'Turno para realizar o voo',
+    enum: ['Manhã', 'Tarde', 'Noite'],
+    required: false,
+  })
+  turno?: string;
+
+  @ApiProperty({
     description: 'Id do estado de onde o passageiro vai sair',
     required: false,
   })
   origemId?: number;
+
+  @ApiProperty({
+    description: 'Filtrar por companhias (ids separados por virgula)',
+    required: false,
+  })
+  companhiasId?: string;
 
   @ApiProperty({
     description: 'Id do estado de onde o passageiro vai chegar',
