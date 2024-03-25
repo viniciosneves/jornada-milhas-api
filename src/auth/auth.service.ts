@@ -34,8 +34,10 @@ export class AuthService {
   }
   async find(email: string): Promise<any> {
     const user = await this.usersService.findOne(email);
-    delete user.senha;
-    delete user.id;
+    if (user) {
+      delete user.senha;
+      delete user.id;
+    }
     return user;
   }
 

@@ -1,9 +1,11 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   Get,
   HttpCode,
   HttpStatus,
+  NotFoundException,
   Patch,
   Post,
   Request,
@@ -33,7 +35,15 @@ export class AuthController {
   @ApiOkResponse({
     type: UserDto,
   })
-  cadastro(@Body() userDto: UserDto) {
+  async cadastro(@Body() userDto: UserDto) {
+    const dbUser = await this.authService.find(userDto.email);
+
+    if (dbUser) {
+      throw new BadRequestException({
+        erro: 'E-mail já utilizado.',
+      });
+    }
+
     return this.authService.cadastro(userDto);
   }
   @Get('perfil')
@@ -41,12 +51,17 @@ export class AuthController {
     type: UserDto,
   })
   @UseGuards(AuthGuard)
-  perfil(@Request() req) {
-    return this.authService.find(req.user.email);
+  async perfil(@Request() req) {
+    const user = await this.authService.find(req.user.email);
+    if (!user) {
+      throw new NotFoundException();
+    }
+    return user;
   }
   @Patch('perfil')
   @UseGuards(AuthGuard)
-  atualizar(@Body() userDto: UserDto, @Request() req) {
-    return this.authService.update(req.user.email, userDto);
+  async atualizar(@Body() userDto: UserDto, @Request() req) {
+    await this.authService.update(req.user.email, userDto);
+    return this.authService.signIn(userDto.email, userDto.senha);
   }
 }
